@@ -1,0 +1,42 @@
+
+body {
+  background-color: black;
+}
+
+h3 {
+  color: white;
+}
+
+p{
+  color: white;
+}
+
+.lamp-container {
+  position: relative;
+  width: auto;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.lamp-container img {
+  width: 70%;
+  height: 70%;
+  object-fit: scale-down;
+  margin-top: 15%;
+  margin-left: 10%;
+}
+
+.lamp-light {
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+
+
+  filter: blur(40px);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+}

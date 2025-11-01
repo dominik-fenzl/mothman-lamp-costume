@@ -1,0 +1,14 @@
+<html>
+  <body>
+    <script>
+        
+      var ws = new WebSocket(`ws://${window.location.hostname}/ws`);
+      ws.onmessage = function (event) {
+        document.getElementById("log").textContent += event.data + "\n";
+      };
+    </script>
+
+    <h1>Logs</h1>
+    <pre id="log"></pre>
+  </body>
+</html>

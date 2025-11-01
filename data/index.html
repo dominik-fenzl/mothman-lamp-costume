@@ -1,0 +1,139 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script>
+      var lastSetColor = "#000000";
+      var buttonOn = false;
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const colorPicker = document.getElementById("colorPicker");
+        fetch("/color")
+          .then((data) => {
+            return data.text();
+          }).then(data => {
+            lastSetColor = '#' + data;
+            colorPicker.value = lastSetColor;
+          })
+          .catch((error) => console.error("Error sending color:", error));
+
+        colorPicker.addEventListener("input", async (event) => {
+          const colorValue = event.target.value; // e.g., "#ff0000"
+          console.log("WOOORKS");
+          try {
+            fetch(`/color?color=${encodeURIComponent(colorValue)}`, {
+              method: "POST",
+            });
+            lastSetColor = colorValue;
+            if (buttonOn) {
+              setConicGradient("lamp", colorValue);
+            } else {
+              setConicGradient("lamp", "#000000");
+            }
+          } catch (error) {
+            console.error("Error sending color:", error);
+          }
+        });
+      });
+
+      function turnon() {
+        try {
+          fetch("/turnon", {
+            method: "POST",
+          });
+          setConicGradient("lamp", lastSetColor);
+        } catch (error) {
+          console.error("Error sending color:", error);
+        }
+      }
+
+      function turnoff() {
+        try {
+          fetch("/turnoff", {
+            method: "POST",
+          });
+          setConicGradient("lamp", "#000000");
+        } catch (error) {
+          console.error("Error sending color:", error);
+        }
+      }
+      /**
+       * Sets a conic-gradient background on a specific element.
+       * @param {string} elementId - ID of the element.
+       * @param {string} hexColor - Color in hex format, e.g., "#ffc80a".
+       */
+      function setConicGradient(elementId, hexColor) {
+        // Remove the '#' if present
+        if (hexColor.startsWith("#")) hexColor = hexColor.slice(1);
+
+        // Convert hex to RGB
+        const r = parseInt(hexColor.substr(0, 2), 16);
+        const g = parseInt(hexColor.substr(2, 2), 16);
+        const b = parseInt(hexColor.substr(4, 2), 16);
+
+        // Build the gradient string
+        const gradient = `conic-gradient(
+          from 165deg at 50% 0%,
+          rgba(${r}, ${g}, ${b}, 0.8) 0deg,
+          rgba(${r}, ${g}, ${b}, 0.3) 20deg,
+          rgba(${r}, ${g}, ${b}, 0) 40deg
+      )`;
+
+        // Set the background
+        const el = document.getElementById(elementId);
+        if (el) {
+          el.style.background = gradient;
+        } else {
+          console.warn(`Element with id "${elementId}" not found.`);
+        }
+      }
+    </script>
+
+    <div
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        z-index: 1000;
+      "
+    >
+      <div style="display: flex; flex-direction: column; width: 100%">
+        <h3>Mothmans favorite Lamp</h3>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            width: 100%;
+          "
+        >
+          <input
+            type="color"
+            id="colorPicker"
+            name="color"
+            style="width: 40%; height: 100px"
+          />
+          <button onclick="turnon()" style="width: 40%; font-size: xx-large">
+            On
+          </button>
+          <button onclick="turnoff()" style="width: 40%; font-size: xx-large">
+            Off
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="lamp-container"
+      style="background-color: rgba(36, 36, 36, 0.159)"
+    >
+      <img src="mothman.png" alt="Scene" />
+      <div class="lamp-light" id="lamp"></div>
+    </div>
+  </body>
+</html>
