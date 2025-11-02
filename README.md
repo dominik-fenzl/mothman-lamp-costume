@@ -41,6 +41,12 @@ The arduino code contains the instructions to control the cord switch, the inclu
 
 The code was flashed via Arduino IDE on to the esp.
 
+### Circuit Diagram
+The following contains the circuit diagram I "designed" (please don't judge the software dev for not using the correct symbols 👀):
+
+<img src="images/CircuitDiagram.svg"
+         alt="An image of the circuit diagram" width="800" height="500">
+
 ### LittleFs
 To include the actual html, css and image files on the esp webserver I used LittleFs, a tiny filesystem that can be used on an esp.
 For this you first have to upload the files onto the esp, this can be done through various ways.
