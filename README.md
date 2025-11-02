@@ -51,3 +51,13 @@ The following contains the circuit diagram I "designed" (please don't judge the 
 To include the actual html, css and image files on the esp webserver I used LittleFs, a tiny filesystem that can be used on an esp.
 For this you first have to upload the files onto the esp, this can be done through various ways.
 I used the arduino IDE plugin, and used the tutorial from here: https://randomnerdtutorials.com/arduino-ide-2-install-esp8266-littlefs/.
+
+
+## References
+The following tutorials/links were used to help me with the project:
+- https://www.instructables.com/ESP8266-Connected-WS2812-RGB-LED-Controlled-Throug/
+- https://lastminuteengineers.com/esp8266-wled-tutorial/
+- https://www.omnicalculator.com/math/truncated-cone
+- https://www.templatemaker.nl/en/cone/
+- https://randomnerdtutorials.com/esp32-web-server-littlefs/
+- https://randomnerdtutorials.com/arduino-ide-2-install-esp8266-littlefs/
