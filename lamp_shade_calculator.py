@@ -1,9 +1,14 @@
 import math
 
-# everything in cm
+# everything is in cm
+
+# Height of the cone
 H = 10.0
+# diagonal of the top circle
 T = 18.0
+# diagonal of the bottom circle
 B = 40.0
+# the diagonal of side length
 R = 15.0
 
 R = math.sqrt((0.5*B - 0.5*T)**2 + H**2)
